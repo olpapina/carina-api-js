@@ -5,6 +5,7 @@ const chai = require('chai');
 chai.use(require('chai-json-schema'));
 
 describe('POST method tests', () => {
+    let expectedNewId = 11;
     let postRequest = JSON.parse(fs.readFileSync('./test/resources/post_rq.json'));
     let expectedResponse = JSON.parse(fs.readFileSync('./test/resources/post_rs.json'));
     let expectedSchema = JSON.parse(fs.readFileSync('./test/resources/post_rs.schema'));
@@ -20,7 +21,7 @@ describe('POST method tests', () => {
                 let actualDataString = JSON.stringify(response.data);
                 assert.equal(response.status, 201);
                 assert.equal(response.statusText, 'Created');
-                assert.deepEqual(response.data.id, 11);
+                assert.deepEqual(response.data.id, expectedNewId);
                 assert.equal(actualDataString, expectedDataString);
                 chai.expect(response.data).to.be.jsonSchema(expectedSchema);
             })
@@ -37,7 +38,7 @@ describe('POST method tests', () => {
             .then(function (response) {
                 assert.equal(response.status, 201);
                 assert.equal(response.statusText, 'Created');
-                assert.deepEqual(response.data.id, 11);
+                assert.deepEqual(response.data.id, expectedNewId);
                 chai.expect(response.data).to.be.jsonSchema(expectedSchema);
                 chai.expect(response.data).to.not.have.property("name");
                 chai.expect(response.data).to.not.have.property("username");

@@ -4,6 +4,7 @@ const fs = require('fs');
 const chai = require('chai');
 chai.use(require('chai-json-schema'));
 describe('GET method tests', () => {
+        let resultQuantity = 10;
         let rawdata = fs.readFileSync('./test/resources/get_rs.json');
         let expectedData = JSON.parse(rawdata);
         let expectedSchema = JSON.parse(fs.readFileSync('./test/resources/get_rs.schema'));
@@ -12,7 +13,7 @@ describe('GET method tests', () => {
                         method: 'GET',
                         url: 'https://jsonplaceholder.typicode.com/users',
                         params: {
-                                _limit: 10
+                                _limit: resultQuantity
                         }
                 })
                         .then(function (response) {
